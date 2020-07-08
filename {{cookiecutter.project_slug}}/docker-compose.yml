@@ -17,6 +17,7 @@ services:
     networks:
       - net
 
+
 {%- if cookiecutter.use_celery == 'y' %}
   celery_worker:
     build: .

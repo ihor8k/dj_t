@@ -217,6 +217,7 @@ REST_FRAMEWORK = {
     'DATE_INPUT_FORMATS': ['%Y-%m-%d', '%Y-%m-%d %H:%M:%S'],
 }
 {%- if cookiecutter.use_celery == 'y' %}
+
 # Celery
 if USE_TZ:
     # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-timezone
@@ -241,6 +242,7 @@ CELERY_TASK_SOFT_TIME_LIMIT = 120
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 {%- endif %}
 
+
 {%- if cookiecutter.use_sentry == 'y' %}
 # Sentry
 SENTRY_DSN = os.getenv('SENTRY_DSN')
@@ -249,6 +251,7 @@ if IS_PROD:
     sentry_logging = LoggingIntegration(level=SENTRY_LOG_LEVEL, event_level=logging.ERROR)
     sentry_sdk.init(dsn=SENTRY_DSN, integrations=[sentry_logging, DjangoIntegration(), CeleryIntegration()])
 {%- endif %}
+
 
 {%- if cookiecutter.use_redis == 'y' %}
 # Cache redis
