@@ -5,10 +5,11 @@ import logging
 {%- endif %}
 
 from pathlib import Path
+{%- if cookiecutter.use_sentry == 'y' %}
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
-
+{%- endif %}
 
 ROOT_DIR = Path(__file__).parent.parent
 APPS_DIR = ROOT_DIR / 'apps'
