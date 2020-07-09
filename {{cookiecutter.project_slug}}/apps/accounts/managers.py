@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
-from django.db.models import Manager
 from django.utils.translation import gettext_lazy as _
 
 
@@ -20,11 +19,3 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email: str, password: str = None, **extra_fields) -> settings.AUTH_USER_MODEL:
         return self._create_user(email, password, is_staff=True, is_superuser=True, **extra_fields)
 
-
-class UserActiveManagerMixin:
-    def get_queryset(self):
-        return super().get_queryset().filter(user__is_active=True)
-
-
-class UserActiveManager(UserActiveManagerMixin, Manager):
-    use_for_related_fields = True
