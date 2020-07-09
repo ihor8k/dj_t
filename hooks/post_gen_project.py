@@ -14,10 +14,14 @@ def remove_celery_files():
         os.remove(file_name)
 
 
-def remove_drf_folders():
-    dirs = ['apis']
+def remove_drf_files_folders():
+    dirs = ['apps/accounts/api']
     for path_dir in dirs:
         shutil.rmtree(path_dir, ignore_errors=True)
+
+    file_names = [os.path.join('config', 'urls_api_v1.py')]
+    for file_name in file_names:
+        os.remove(file_name)
 
 
 def main():
@@ -25,7 +29,7 @@ def main():
         remove_celery_files()
     
     if '{{ cookiecutter.use_drf }}'.lower() == 'n':
-        remove_drf_folders()
+        remove_drf_files_folders()
 
     print(SUCCESS + 'Project initialized, keep up the good work!' + TERMINATOR)
 

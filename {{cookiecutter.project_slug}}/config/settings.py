@@ -88,11 +88,15 @@ INSTALLED_APPS = [
 {%- if cookiecutter.use_celery == 'y' %}
     'django_celery_beat',
 {%- endif %}
+
+    'apps.accounts',
 ]
 
 # AUTHENTICATION
 # https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
 AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
+# https://docs.djangoproject.com/en/2.2/ref/settings/#auth-user-model
+AUTH_USER_MODEL = 'accounts.User'
 
 # PASSWORDS
 # https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers
