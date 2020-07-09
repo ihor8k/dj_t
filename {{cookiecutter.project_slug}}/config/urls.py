@@ -12,9 +12,9 @@ from rest_framework.permissions import AllowAny
 
 schema_view = get_schema_view(
    Info(
-      title='{{ cookiecutter.project_slug }} API',
+      title='{{ cookiecutter.project_name }} API',
       default_version='v1',
-      description='{{ cookiecutter.project_slug }} project',
+      description='{{ cookiecutter.project_name }} project',
       contact=Contact(email='{{ cookiecutter.project_slug }}@example.com'),
    ),
    public=True,
