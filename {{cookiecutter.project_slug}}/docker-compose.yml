@@ -16,9 +16,8 @@ services:
       - postgresql
     networks:
       - net
-
-
 {%- if cookiecutter.use_celery == 'y' %}
+
   celery_worker:
     build: .
     environment:
@@ -43,8 +42,8 @@ services:
       - 5432:5432
     networks:
       - net
-
 {%- if cookiecutter.use_redis == 'y' %}
+
   redis:
     image: redis:5.0
     networks:

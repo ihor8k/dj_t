@@ -72,11 +72,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.staticfiles',
     'django.contrib.messages',
+{%- if cookiecutter.use_drf == 'y' %}
 
     'rest_framework',
     'rest_framework.authtoken',
+{%- endif %}
+{%- if cookiecutter.use_corsheaders == 'y' %}
     'corsheaders',
+{%- endif %}
+{%- if cookiecutter.use_drf_yasg == 'y' %}
     'drf_yasg',
+{%- endif %}
 {%- if cookiecutter.use_celery == 'y' %}
     'django_celery_beat',
 {%- endif %}
@@ -106,7 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    {%- if cookiecutter.use_corsheaders == 'y' %}
     'corsheaders.middleware.CorsMiddleware',
+    {%- endif %}
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -209,6 +217,8 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/dev/ref/settings/#fixture-dirs
 FIXTURE_DIRS = (str(ROOT_DIR / 'fixtures'),)
 
+{%- if cookiecutter.use_drf == 'y' %}
+
 # DRF
 # https://www.django-rest-framework.org/api-guide/settings/#settings
 REST_FRAMEWORK = {
@@ -216,6 +226,7 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%Y-%m-%d %H:%M:%S',
     'DATE_INPUT_FORMATS': ['%Y-%m-%d', '%Y-%m-%d %H:%M:%S'],
 }
+{%- endif %}
 {%- if cookiecutter.use_celery == 'y' %}
 
 # Celery
@@ -241,9 +252,8 @@ CELERY_TASK_SOFT_TIME_LIMIT = 120
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#beat-scheduler
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 {%- endif %}
-
-
 {%- if cookiecutter.use_sentry == 'y' %}
+
 # Sentry
 SENTRY_DSN = os.getenv('SENTRY_DSN')
 SENTRY_LOG_LEVEL = int(os.getenv('DJANGO_SENTRY_LOG_LEVEL', logging.INFO))
@@ -251,9 +261,8 @@ if IS_PROD:
     sentry_logging = LoggingIntegration(level=SENTRY_LOG_LEVEL, event_level=logging.ERROR)
     sentry_sdk.init(dsn=SENTRY_DSN, integrations=[sentry_logging, DjangoIntegration(), CeleryIntegration()])
 {%- endif %}
-
-
 {%- if cookiecutter.use_redis == 'y' %}
+
 # Cache redis
 CACHES = {
     'default': {
@@ -324,6 +333,8 @@ if not DEBUG:
         },
     }
 
+{%- if cookiecutter.use_corsheaders == 'y' %}
+
 # Django cors headers
 if IS_PROD:
     # https://github.com/adamchainz/django-cors-headers#cors_origin_whitelist
@@ -331,6 +342,8 @@ if IS_PROD:
 else:
     # https://github.com/adamchainz/django-cors-headers#cors_origin_regex_whitelist
     CORS_ORIGIN_REGEX_WHITELIST = [r'^http[s]*:\/\/[\d\w.-]+:[\d]+$']
+{%- endif %}
+{%- if cookiecutter.use_drf_yasg == 'y' %}
 
 # Swagger Settings
 # https://drf-yasg.readthedocs.io/en/stable/security.html#security-definitions
@@ -343,6 +356,7 @@ SWAGGER_SETTINGS = {
         }
     }
 }
+{%- endif %}
 
 # Your stuff...
 

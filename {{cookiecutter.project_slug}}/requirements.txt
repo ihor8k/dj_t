@@ -1,14 +1,20 @@
 Django==2.2.12
+{%- if cookiecutter.use_corsheaders == 'y' %}
 django-cors-headers==3.2.1
+{%- endif %}
 {%- if cookiecutter.use_redis == 'y' %}
 django-redis==4.12.1
 {%- endif %}
 {%- if cookiecutter.use_celery == 'y' %}
 django-celery-beat==2.0.0
 {%- endif %}
+{%- if cookiecutter.use_drf == 'y' %}
 djangorestframework==3.11.0
 drf-nested-routers==0.91
+{%- endif %}
+{%- if cookiecutter.use_drf_yasg == 'y' %}
 drf-yasg==1.17.1
+{%- endif %}
 flake8==3.8.1
 psycopg2==2.8.5
 Pillow==7.1.2
