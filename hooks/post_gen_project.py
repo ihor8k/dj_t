@@ -19,7 +19,8 @@ def remove_drf_files_folders():
     for path_dir in dirs:
         shutil.rmtree(path_dir, ignore_errors=True)
 
-    file_names = [os.path.join('config', 'urls_api_v1.py')]
+    file_names = ['config/urls_api_v1.py',
+                  'helpers/drf.py']
     for file_name in file_names:
         os.remove(file_name)
 
