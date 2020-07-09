@@ -11,10 +11,12 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 {%- endif %}
 
+
 ROOT_DIR = Path(__file__).parent.parent
 APPS_DIR = ROOT_DIR / 'apps'
+{%- if cookiecutter.use_drf == 'y' %}
 APIS_DIR = ROOT_DIR / 'apis'
-
+{%- endif %}
 
 # GENERAL
 DEPLOYMENT_ENVIRONMENT = os.getenv('DEPLOYMENT_ENVIRONMENT', 'PROD')
@@ -229,7 +231,7 @@ REST_FRAMEWORK = {
 {%- endif %}
 {%- if cookiecutter.use_celery == 'y' %}
 
-# Celery
+# CELERY
 if USE_TZ:
     # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-timezone
     CELERY_TIMEZONE = TIME_ZONE
@@ -254,7 +256,7 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 {%- endif %}
 {%- if cookiecutter.use_sentry == 'y' %}
 
-# Sentry
+# SENTRY
 SENTRY_DSN = os.getenv('SENTRY_DSN')
 SENTRY_LOG_LEVEL = int(os.getenv('DJANGO_SENTRY_LOG_LEVEL', logging.INFO))
 if IS_PROD:
@@ -263,7 +265,7 @@ if IS_PROD:
 {%- endif %}
 {%- if cookiecutter.use_redis == 'y' %}
 
-# Cache redis
+# CACHES REDIS
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
@@ -335,7 +337,7 @@ if not DEBUG:
 
 {%- if cookiecutter.use_corsheaders == 'y' %}
 
-# Django cors headers
+# DJANGO CORS HEADERS
 if IS_PROD:
     # https://github.com/adamchainz/django-cors-headers#cors_origin_whitelist
     CORS_ORIGIN_WHITELIST = []
@@ -345,7 +347,7 @@ else:
 {%- endif %}
 {%- if cookiecutter.use_drf_yasg == 'y' %}
 
-# Swagger Settings
+# SWAGGER SETTINGS
 # https://drf-yasg.readthedocs.io/en/stable/security.html#security-definitions
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
@@ -358,5 +360,5 @@ SWAGGER_SETTINGS = {
 }
 {%- endif %}
 
-# Your stuff...
+# YOUR STAFF...
 
